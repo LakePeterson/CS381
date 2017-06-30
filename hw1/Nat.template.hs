@@ -91,7 +91,7 @@ add :: Nat -> Nat -> Nat
 add = undefined
 -- add Zero x = x
 -- add x Zero = x
--- add x y = take ((toInt x) + (toInt y)) Nat
+-- add x y = take ((toInt x) + (toInt y)) [Zero..four]
 
 -- | Subtract the second natural number from the first. Return zero
 --   if the second number is bigger.
