@@ -69,7 +69,8 @@ isZero _ = False
 --   3
 --
 toInt :: Nat -> Int
-toInt = undefined
+toInt Zero = 0
+toInt x = (toInt (pred x)) + 1
 
 
 -- | Add two natural numbers.
@@ -88,7 +89,9 @@ toInt = undefined
 --
 add :: Nat -> Nat -> Nat
 add = undefined
-
+-- add Zero x = x
+-- add x Zero = x
+-- add x y = take ((toInt x) + (toInt y)) Nat
 
 -- | Subtract the second natural number from the first. Return zero
 --   if the second number is bigger.
@@ -155,9 +158,9 @@ mult = undefined
 --
 -- | borrowed from haskell 8
 sum :: [Nat] -> Nat
--- sum []  =  0
+--sum []  =  0
 sum = undefined
--- sum (h:t) = h ++ sum t
+-- sum (h:t) =(toInt h) ++ sum t
 
 
 -- | An infinite list of all of the *odd* natural numbers, in order.
