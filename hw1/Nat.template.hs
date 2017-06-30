@@ -151,8 +151,11 @@ mult = undefined
 --   >>> toInt (sum [one,two,three])
 --   6
 --
+-- | borrowed from haskell 8
 sum :: [Nat] -> Nat
+sum []  =  0
 sum = undefined
+-- sum (h:t) = h ++ sum t
 
 
 -- | An infinite list of all of the *odd* natural numbers, in order.
