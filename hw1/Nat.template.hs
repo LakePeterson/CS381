@@ -37,6 +37,7 @@ four = Succ three
 --   >>> pred three
 --   Succ (Succ Zero)
 --
+pred :: Nat -> Nat
 pred = undefined
 
 
@@ -48,6 +49,8 @@ pred = undefined
 --   >>> isZero two
 --   False
 --
+-- | assuming i need to use the Nat dataType
+isZero :: Nat -> Nat
 isZero = undefined
 
 
@@ -59,6 +62,7 @@ isZero = undefined
 --   >>> toInt three
 --   3
 --
+toInt :: Nat -> Int
 toInt = undefined
 
 
@@ -76,6 +80,7 @@ toInt = undefined
 --   >>> add two three == add three two
 --   True
 --
+add :: Nat -> Nat -> Nat
 add = undefined
 
 
@@ -94,6 +99,7 @@ add = undefined
 --   >>> sub one three
 --   Zero
 --
+sub :: Nat -> Nat -> Nat
 sub = undefined
 
 
@@ -108,6 +114,7 @@ sub = undefined
 --   >>> gt two two
 --   False
 --
+gt :: Nat -> Nat -> Bool
 gt = undefined
 
 
@@ -125,6 +132,7 @@ gt = undefined
 --   >>> toInt (mult three three)
 --   9
 --
+mult :: Nat -> Nat -> Nat
 mult = undefined
 
 
@@ -139,6 +147,7 @@ mult = undefined
 --   >>> toInt (sum [one,two,three])
 --   6
 --
+sum :: [Nat] -> Nat
 sum = undefined
 
 
@@ -150,4 +159,5 @@ sum = undefined
 --   >>> toInt (sum (take 100 odds))
 --   10000
 --
+odds :: [Nat]
 odds = undefined
