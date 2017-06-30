@@ -82,7 +82,7 @@ rightmost (Node _ _ r = rightmost r
 --   >>> maxInt t2
 --   9
 --
-maxInt = Tree -> Int
+maxInt :: Tree -> Int
 maxInt = undefined
 
 
@@ -121,6 +121,7 @@ minInt = undefined
 --   >>> sumInts (Node 10 t1 t2)
 --   100
 --
+sumInts :: Tree -> Int
 sumInts = undefined
 
 
@@ -138,6 +139,7 @@ sumInts = undefined
 --   >>> preorder t2
 --   [6,2,1,4,3,5,8,7,9]
 --
+preorder :: Tree -> [Int]
 preorder = undefined
 
 
@@ -155,6 +157,7 @@ preorder = undefined
 --   >>> inorder t2
 --   [1,2,3,4,5,6,7,8,9]
 --
+inorder :: Tree -> [Int]
 inorder = undefined
 
 
@@ -172,6 +175,7 @@ inorder = undefined
 --   >>> isBST t2
 --   True
 --
+isBST :: Tree -> Bool
 isBST = undefined
 
 
@@ -190,4 +194,5 @@ isBST = undefined
 --   >>> inBST 10 t2
 --   False
 --
+inBST :: int -> Tree -> Bool
 inBST = undefined
