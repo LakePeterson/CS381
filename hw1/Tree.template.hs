@@ -82,6 +82,7 @@ rightmost (Node _ _ r = rightmost r
 --   >>> maxInt t2
 --   9
 --
+maxInt = Tree -> Int
 maxInt = undefined
 
 
@@ -102,6 +103,7 @@ maxInt = undefined
 --   >>> minInt t2
 --   1
 --
+minInt :: Tree -> Int
 minInt = undefined
 
 
