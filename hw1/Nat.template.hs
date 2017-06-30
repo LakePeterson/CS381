@@ -31,7 +31,7 @@ three = Succ two
 -- | The number 4.
 four :: Nat
 four = Succ three
-
+-- | Nat = [Zero, Succ Zero, Succ one, Succ two, Succ three]
 
 -- | The predecessor of a natural number.
 --
@@ -41,9 +41,10 @@ four = Succ three
 --   >>> pred three
 --   Succ (Succ Zero)
 --
+-- | look for a better way of doing this
 pred :: Nat -> Nat
-pred = undefined
-
+pred Zero = Zero
+pred (Succ x) = x
 
 -- | True if the given value is zero.
 --
@@ -54,8 +55,9 @@ pred = undefined
 --   False
 --
 -- | assuming i need to use the Nat dataType
-isZero :: Nat -> Nat
-isZero = undefined
+isZero :: Nat -> Bool
+isZero Zero = True
+isZero _ = False
 
 
 -- | Convert a natural number to an integer.
@@ -153,7 +155,7 @@ mult = undefined
 --
 -- | borrowed from haskell 8
 sum :: [Nat] -> Nat
-sum []  =  0
+-- sum []  =  0
 sum = undefined
 -- sum (h:t) = h ++ sum t
 
