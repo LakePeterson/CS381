@@ -88,10 +88,10 @@ toInt x = (toInt (pred x)) + 1
 --   True
 --
 add :: Nat -> Nat -> Nat
-add = undefined
--- add Zero x = x
--- add x Zero = x
--- add x y = [Zero..four]!!((toInt x) + (toInt y))
+add Zero x = x
+add x Zero = x
+add x y = add (pred x) (Succ y)
+--add x y = [Zero,one,two,three,four] !! ((toInt x) + (toInt y))
 
 -- | Subtract the second natural number from the first. Return zero
 --   if the second number is bigger.
@@ -109,7 +109,9 @@ add = undefined
 --   Zero
 --
 sub :: Nat -> Nat -> Nat
-sub = undefined
+sub Zero x = Zero
+sub x Zero = x
+sub x y = sub (pred x) (pred y)
 
 
 -- | Is the left value greater than the right?
