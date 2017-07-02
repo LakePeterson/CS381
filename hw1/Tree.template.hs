@@ -62,7 +62,7 @@ leftmost (Node _ l _) = leftmost l
 --
 rightmost :: Tree -> Int
 rightmost (Leaf i)     = i
-rightmost (Node _ _ r = rightmost r
+rightmost (Node _ _ r) = rightmost r
 
 
 -- | Get the maximum integer from a binary tree.
@@ -83,7 +83,12 @@ rightmost (Node _ _ r = rightmost r
 --   9
 --
 maxInt :: Tree -> Int
-maxInt = undefined
+maxInt (Leaf i) = i
+maxInt (Node val l r) = max3 (maxInt l) (val) (maxInt r)
+
+-- three way max
+max3 :: Int -> Int -> Int -> Int
+max3 a b c = max (a) (max b c)
 
 
 -- | Get the minimum integer from a binary tree.
@@ -104,7 +109,12 @@ maxInt = undefined
 --   1
 --
 minInt :: Tree -> Int
-minInt = undefined
+minInt (Leaf i) = i
+minInt (Node val l r) = min3 (minInt l) (val) (minInt r)
+
+-- three way min
+min3 :: Int -> Int -> Int -> Int
+min3 a b c = min (a) (min b c)
 
 
 -- | Get the sum of the integers in a binary tree.
@@ -122,7 +132,9 @@ minInt = undefined
 --   100
 --
 sumInts :: Tree -> Int
-sumInts = undefined
+sumInts (Leaf i) = i
+sumInts (Node val l r) = val + (sumInts l) + (sumInts r) 
+
 
 
 -- | The list of integers encountered by a pre-order traversal of the tree.
@@ -139,8 +151,10 @@ sumInts = undefined
 --   >>> preorder t2
 --   [6,2,1,4,3,5,8,7,9]
 --
+-- | https://stackoverflow.com/questions/5330679/haskell-traverse-tree-inorder-preorder-postorder
 preorder :: Tree -> [Int]
-preorder = undefined
+preorder (Leaf i) = [i]
+preorder (Node val l r) =  [val] ++ (inorder l) ++ (inorder r) 
 
 
 -- | The list of integers encountered by an in-order traversal of the tree.
@@ -157,8 +171,10 @@ preorder = undefined
 --   >>> inorder t2
 --   [1,2,3,4,5,6,7,8,9]
 --
+-- | https://stackoverflow.com/questions/5330679/haskell-traverse-tree-inorder-preorder-postorder
 inorder :: Tree -> [Int]
-inorder = undefined
+inorder (Leaf i) = [i]
+inorder (Node val l r) = (inorder l) ++ [val] ++ (inorder r)
 
 
 -- | Check whether a binary tree is a binary search tree.
@@ -176,7 +192,8 @@ inorder = undefined
 --   True
 --
 isBST :: Tree -> Bool
-isBST = undefined
+isBST (Leaf i) = True
+isBST (Node val l r) = (val > (isBST l)) && (val < (isBST r)) 
 
 
 -- | Check whether a number is contained in a binary search tree.
