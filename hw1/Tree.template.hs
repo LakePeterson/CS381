@@ -136,7 +136,6 @@ sumInts (Leaf i) = i
 sumInts (Node val l r) = val + (sumInts l) + (sumInts r) 
 
 
-
 -- | The list of integers encountered by a pre-order traversal of the tree.
 --
 --   >>> preorder (Leaf 3)
@@ -155,6 +154,7 @@ sumInts (Node val l r) = val + (sumInts l) + (sumInts r)
 preorder :: Tree -> [Int]
 preorder (Leaf i) = [i]
 preorder (Node val l r) =  [val] ++ (inorder l) ++ (inorder r) 
+
 
 
 -- | The list of integers encountered by an in-order traversal of the tree.
@@ -193,7 +193,11 @@ inorder (Node val l r) = (inorder l) ++ [val] ++ (inorder r)
 --
 isBST :: Tree -> Bool
 isBST (Leaf i) = True
-isBST (Node val l r) = (val > (isBST l)) && (val < (isBST r)) 
+isBST (Node val l r) =  (val > (valBST l)) && (isBST l) && (val < (valBST r)) && (isBST r) 
+
+valBST :: Tree -> Int
+valBST (Leaf i) = i
+valBST (Node val l r) = val
 
 
 -- | Check whether a number is contained in a binary search tree.
@@ -211,5 +215,6 @@ isBST (Node val l r) = (val > (isBST l)) && (val < (isBST r))
 --   >>> inBST 10 t2
 --   False
 --
-inBST :: int -> Tree -> Bool
-inBST = undefined
+inBST :: Int -> Tree -> Bool
+inBST num (Leaf i) = num == i
+inBST num (Node val l r) = any (==num) (inorder (Node val l r))
