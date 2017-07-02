@@ -126,7 +126,7 @@ sub x y = sub (pred x) (pred y)
 --   False
 --
 gt :: Nat -> Nat -> Bool
-gt = undefined
+gt x y = (toInt x) > (toInt y)
 
 
 -- | Multiply two natural numbers.
@@ -144,7 +144,9 @@ gt = undefined
 --   9
 --
 mult :: Nat -> Nat -> Nat
-mult = undefined
+mult x Zero = Zero
+mult Zero x = Zero
+mult x y = nums !! ((toInt x) * (toInt y))
 
 
 -- | Compute the sum of a list of natural numbers.
@@ -158,12 +160,9 @@ mult = undefined
 --   >>> toInt (sum [one,two,three])
 --   6
 --
--- | borrowed from haskell 8
 sum :: [Nat] -> Nat
---sum []  =  0
-sum = undefined
--- sum (h:t) =(toInt h) ++ sum t
-
+sum [] = Zero
+sum (h:t) = foldr (add) Zero (h:t)
 
 -- | An infinite list of all of the *odd* natural numbers, in order.
 --
@@ -174,4 +173,11 @@ sum = undefined
 --   10000
 --
 odds :: [Nat]
-odds = undefined
+odds = filter isOdd nums
+
+isOdd :: Nat -> Bool
+isOdd Zero = False
+isOdd x = not ((mod (toInt x) 2) == 0)
+
+nums :: [Nat]
+nums = Zero : map (add one) nums
