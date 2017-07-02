@@ -146,7 +146,8 @@ gt x y = (toInt x) > (toInt y)
 mult :: Nat -> Nat -> Nat
 mult x Zero = Zero
 mult Zero x = Zero
-mult x y = nums !! ((toInt x) * (toInt y))
+--mult x y = nums !! ((toInt x) * (toInt y))
+mult x y = sum(take (toInt x) (repeat y))
 
 
 -- | Compute the sum of a list of natural numbers.
