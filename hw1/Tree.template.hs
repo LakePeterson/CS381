@@ -150,10 +150,10 @@ sumInts (Node val l r) = val + (sumInts l) + (sumInts r)
 --   >>> preorder t2
 --   [6,2,1,4,3,5,8,7,9]
 --
--- | https://stackoverflow.com/questions/5330679/haskell-traverse-tree-inorder-preorder-postorder
+-- | https://stackoverflow.com/questions/9492109/haskell-tree-to-list-preorder-traversal
 preorder :: Tree -> [Int]
 preorder (Leaf i) = [i]
-preorder (Node val l r) =  [val] ++ (inorder l) ++ (inorder r) 
+preorder (Node val l r) = val:(preorder l) ++ (preorder r)
 
 
 
@@ -217,4 +217,4 @@ valBST (Node val l r) = val
 --
 inBST :: Int -> Tree -> Bool
 inBST num (Leaf i) = num == i
-inBST num (Node val l r) = any (==num) (inorder (Node val l r))
+inBST num (Node val l r) = any (== num) (inorder (Node val l r))
