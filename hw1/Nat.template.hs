@@ -183,4 +183,4 @@ isOdd Zero = False
 isOdd x = not ((mod (toInt x) 2) == 0)
 
 nums :: [Nat]
-nums = Zero : map (add one) nums
+nums = Zero : map (Succ) nums
