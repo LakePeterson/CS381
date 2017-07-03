@@ -93,7 +93,6 @@ add :: Nat -> Nat -> Nat
 add Zero x = x
 add x Zero = x
 add x y = add (pred x) (Succ y)
---add x y = [Zero,one,two,three,four] !! ((toInt x) + (toInt y))
 
 -- | Subtract the second natural number from the first. Return zero
 --   if the second number is bigger.
