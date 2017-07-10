@@ -18,6 +18,8 @@ type Macro = String
 
 type Prog = [Cmd]
 
+--data Mode == pen off page
+            -- pen on page
 data Mode = Up
           | Down
           deriving(Show,Eq)
@@ -26,12 +28,16 @@ data Mode = Up
             -- Num Int
             -- Add Expr Expr
 
-data Expr = Ref Var
-          | Lit Num
+data Expr = Var Var
+          | Num Num
           | Add Expr Expr
           deriving (Eq,Show)
 
-
+--data Cmd == up or down
+           -- move x y
+           -- define "name" [parameters]
+           --       [Program instructions]
+           -- Call "name" [parameters]
 data Cmd = Pen Mode
          | Move Expr Expr
          | Define Macro [Var] Prog
@@ -39,15 +45,17 @@ data Cmd = Pen Mode
          deriving(Eq,Show)
 
 -- Task 2 Line --
+-- the x# and y# can theoretically be replaced by ints
 line :: Cmd
 line = Define "line" ["x1","y1","x2","y2"]
-       [Pen Up,     Move (Ref "x1") (Ref "y1"),
-        Pen Down,   Move (Ref "x2") (Ref "y2")]
--- line = Define "line" [Lit x1,Lit y1,Lit x2,Lit y2]
---        [Pen Up,     Move (Lit x1) (Lit y1),
---         Pen Down,   Move (Lit x2) (Lit y2)]
+       [Pen Up,     Move (Var "x1") (Var "y1"),
+        Pen Down,   Move (Var "x2") (Var "y2")]
 
 -- Task 3 nix --
+nix :: Cmd
+nix = Define "nix" ["x","y","w","h"]
+      [Call "line" [Var "x",Var "y",Add (Var "x") (Var "w"), Add (Var "y") (Var "h")],
+       Call "line" [Var "x",Var "y",Add (Var "x") (Var "w"), Add (Var "y") (Var "h")]]
 
 -- Task 4 steps --
 
