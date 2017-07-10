@@ -62,6 +62,9 @@ nix = Define "nix" ["x","y","w","h"]
        Call "line" [Add (Var "x") (Var "w"),Var "y",Var "x", Add (Var "y") (Var "h")]]
 
 -- Task 4 steps --
+-- Note: no need to use define because this is a prog(Set of commands ex.line, nix,...) 
+-- step :: Int -> Prog
+
 
 -- Task 5 macros --
 
