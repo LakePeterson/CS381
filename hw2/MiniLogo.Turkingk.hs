@@ -55,7 +55,7 @@ line = Define "line" ["x1","y1","x2","y2"]
 nix :: Cmd
 nix = Define "nix" ["x","y","w","h"]
       [Call "line" [Var "x",Var "y",Add (Var "x") (Var "w"), Add (Var "y") (Var "h")],
-       Call "line" [Var "x",Var "y",Add (Var "x") (Var "w"), Add (Var "y") (Var "h")]]
+       Call "line" [Add (Var "x") (Var "w"),Var "y",Var "x", Add (Var "y") (Var "h")]]
 
 -- Task 4 steps --
 
