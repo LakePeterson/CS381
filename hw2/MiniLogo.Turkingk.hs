@@ -52,6 +52,10 @@ line = Define "line" ["x1","y1","x2","y2"]
         Pen Down,   Move (Var "x2") (Var "y2")]
 
 -- Task 3 nix --
+-- (x,y+h) \/ (x+w,y+h)
+--   (x,y) /\ (x+w,y)
+-- line1 == (x,y) to (x+w,y+h)
+-- line2 == (x+w,y) to (x,y+h)
 nix :: Cmd
 nix = Define "nix" ["x","y","w","h"]
       [Call "line" [Var "x",Var "y",Add (Var "x") (Var "w"), Add (Var "y") (Var "h")],
