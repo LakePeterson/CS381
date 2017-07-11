@@ -1,0 +1,27 @@
+The quiz on Monday will contain questions about evaluating, understanding, and defining Haskell functions. Here are the (simplified types of some functions defined in the Haskell Prelude.
+ 
+succ :: Int -> Int	head :: [a] -> a
+even :: Int -> Bool     tail :: [a] -> [a]
+
+foldr :: (a -> b -> b) -> b -> [a] -> [b]
+ 
+Function Evaluation
+Write the result of evaluating each expression, or write "type error" if it is not type correct.
+(a)  succ (head [1,2,3])
+ 
+(b)  succ . even [2,4,6]
+ 
+(c)  foldr (-) 0 [4,5,6]
+ 
+(d)  succ (tail [1,2,3])
+ 
+ 
+Function Understanding
+Explain in English words what the following function computes.
+ 
+f :: [Int] -> [Int]
+f [x] = []
+f (x:y:xs) = (x - y) : f (x:xs)
+ 
+Function Definition
+Define a function maxL :: [Int] -> Int to compute the largest integer in a list of non-negative integers. Define the largest element of an empty list to be 0. You probably want to use the max function whose type is max :: Int -> Int -> Int.
