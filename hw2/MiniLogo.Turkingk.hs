@@ -7,7 +7,9 @@
 
 module MiniLogo where
 
-import Data.List
+
+import Data.List 
+import Prelude hiding (Num)
 
 --
 -- * MiniLogo
@@ -92,19 +94,31 @@ nix = Define "nix" ["x","y","w","h"]
 --      a staircase of n steps starting from (0,0).
 --
 -- Note: no need to use define because this is a prog(Set of commands ex.line, nix,...) 
--- step :: Int -> Prog
-steps = undefined
+steps :: Int -> Prog
+steps 0 = []
+steps 1 = [Pen Up, Move (Num 0) (Num 0), Pen Down,
+           Move (Num 0) (Num 1),Move (Num 1) (Num 1),
+           Pen Up]
+steps x = steps (pred x) ++ [Pen Up, Move (Num x) (Num x), Pen Down,
+           Move (Num x) (Num (succ x)),Move (Num (succ x)) (Num (succ x)),
+           Pen Up]
 
 -- | 5. Define a Haskell function "macros" (macros :: Prog -> [Macro] that
 --      returns a list of the names of all the macros that are defined anywhere
 --      in a given MiniLogo program.
 --
-macros = undefined
+macros :: Prog -> [Macro]
+macros ([]) = []
+macros ((Define mac _ _): cmds) = mac : macros cmds
+macros ((Pen _): cmds)          = macros cmds
+macros ((Call _ _): cmds)       = macros cmds
+macros ((Move _ _): cmds)       = macros cmds
 
 
 -- | 6. Define a Haskell function "pretty" (pretty :: Prog -> String) that
 --      "pretty-prints" a MiniLogo program.
 --
+pretty :: Prog -> String
 pretty = undefined
 
 
