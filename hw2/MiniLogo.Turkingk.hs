@@ -122,10 +122,10 @@ macros ((Move _ _): cmds)       = macros cmds
 --
 pretty :: Prog -> String
 pretty [] = ""
-pretty ((Pen p):cmds) = "(Pen " ++ (case p of
-      Up -> "Up) "
-      Down -> "Down) ") ++ pretty cmds
-pretty ((Move x y):cmds)
+pretty ((Pen p):cmds) = "Pen " ++ (case p of
+      Up -> "Up "
+      Down -> "Down ") ++ pretty cmds
+-- pretty ((Move x y):cmds) = "Move (" ++  (pretty x) ++ ") (" ++ (pretty y) ++ ") " ++ pretty cmds 
 
 
 
