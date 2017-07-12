@@ -107,6 +107,8 @@ steps x = steps (pred x) ++ [Pen Up, Move (Num x) (Num x), Pen Down,
 --      returns a list of the names of all the macros that are defined anywhere
 --      in a given MiniLogo program.
 --
+-- Synonmous with:
+-- macros :: [Cmd] -> [Macro]
 macros :: Prog -> [Macro]
 macros [] = []
 macros ((Define mac _ _): cmds) = mac : macros cmds
