@@ -108,7 +108,7 @@ steps x = steps (pred x) ++ [Pen Up, Move (Num x) (Num x), Pen Down,
 --      in a given MiniLogo program.
 --
 macros :: Prog -> [Macro]
-macros ([]) = []
+macros [] = []
 macros ((Define mac _ _): cmds) = mac : macros cmds
 macros ((Pen _): cmds)          = macros cmds
 macros ((Call _ _): cmds)       = macros cmds
@@ -119,7 +119,12 @@ macros ((Move _ _): cmds)       = macros cmds
 --      "pretty-prints" a MiniLogo program.
 --
 pretty :: Prog -> String
-pretty = undefined
+pretty [] = ""
+pretty ((Pen p):cmds) = "(Pen " ++ (case p of
+      Up -> "Up) "
+      Down -> "Down) ") ++ pretty cmds
+pretty ((Move x y):cmds)
+
 
 
 --
@@ -129,11 +134,13 @@ pretty = undefined
 --      evaluates expressions by replacing additions of literals with the
 --      result.
 --
+optE :: Expr -> Expr
 optE = undefined
 
 
 -- | 8. Define a Haskell function "optP" (optP :: Prog -> Prog) that optimizes
 --      all of the expressions contained in a given program using optE.
 --
+optP :: Prog -> Prog
 optP = undefined
 
