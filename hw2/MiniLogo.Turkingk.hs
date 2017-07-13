@@ -122,7 +122,8 @@ pretty :: Prog -> String
 pretty [] = ""
 pretty ((Pen p):cmds) = "(Pen " ++ (case p of
       Up -> "Up) "
-      Down -> "Down) ") ++ pretty cmds
+      Down -> "Down) "
+      ) ++ pretty cmds
 pretty ((Move x y):cmds)
 
 
