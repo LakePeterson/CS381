@@ -160,4 +160,4 @@ optP (x:xs) = optPCmd x : optP xs --map commands function over [Cmd]
 optPCmd :: Cmd -> Cmd
 optPCmd (Call x y) = Call x (map optE y)
 optPCmd (Move x y) = Move (optE x) (optE y)
-optPCmd x = x -- needs to be at bottom else patter overlap occurs
+optPCmd (Pen x) = (Pen x) -- needs to be at bottom else patter overlap occurs
