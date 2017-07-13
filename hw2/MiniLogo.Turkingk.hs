@@ -122,11 +122,19 @@ macros ((Move _ _): cmds)       = macros cmds
 --
 pretty :: Prog -> String
 pretty [] = ""
-pretty ((Pen p):cmds) = "Pen " ++ (case p of
-      Up -> "Up "
-      Down -> "Down ") ++ pretty cmds
--- pretty ((Move x y):cmds) = "Move (" ++  (pretty x) ++ ") (" ++ (pretty y) ++ ") " ++ pretty cmds 
+pretty ((Pen p):cmds) = "(Pen " ++ (case p of
+      Up -> "Up) "
+      Down -> "Down) ") ++ pretty cmds ++ " "
+pretty ((Move x y):cmds) = "Move (" ++  (prettyExpr x) ++ ") (" ++ (prettyExpr y) ++ ") " ++ pretty cmds ++ " "
+pretty ((Call x y):cmds) = "Call " ++ x ++ " (" ++ concat (map prettyExpr y) ++ ") " ++ pretty cmds ++ " "
+pretty ((Define x y z):cmds) = "Define " ++ x ++ "( (" ++ concat(intersperse " " y) ++ ") (" ++ pretty z ++"))" ++ pretty cmds ++ " "
 
+--helper function
+--https://stackoverflow.com/questions/2784271/haskell-converting-int-to-string
+prettyExpr :: Expr -> String
+prettyExpr (Var x) = x 
+prettyExpr (Num x) = (show x)
+prettyExpr (Add x y) = "(Add " ++ "(" ++ prettyExpr x ++ ")" ++ "(" ++ prettyExpr y ++ ")) " 
 
 
 --
@@ -137,12 +145,19 @@ pretty ((Pen p):cmds) = "Pen " ++ (case p of
 --      result.
 --
 optE :: Expr -> Expr
-optE = undefined
+optE (Var x) = Var x 
+optE (Num x) = Num x
+optE (Add x y) = Add (optE x) (optE y)
 
 
 -- | 8. Define a Haskell function "optP" (optP :: Prog -> Prog) that optimizes
 --      all of the expressions contained in a given program using optE.
 --
 optP :: Prog -> Prog
-optP = undefined
+optP [] = []
+optP x = (map optPCmd x) --map commands function over [Cmd]
 
+optPCmd :: Cmd -> Cmd
+optPCmd (Call x y) = Call x (map optE y)
+optPCmd (Move x y) = Move (optE x) (optE y)
+optPCmd x = x -- needs to be at bottom else patter overlap occurs
