@@ -155,7 +155,7 @@ optE (Add x y) = Add (optE x) (optE y)
 --
 optP :: Prog -> Prog
 optP [] = []
-optP x = (map optPCmd x) --map commands function over [Cmd]
+optP (x:xs) = optPCmd x : optP xs --map commands function over [Cmd]
 
 optPCmd :: Cmd -> Cmd
 optPCmd (Call x y) = Call x (map optE y)
