@@ -3,7 +3,7 @@ module MiniMiniLogoSem where
 import MiniMiniLogo
 import Render
 
---NOTES
+--NOTES -----------------------------------------------
 -- -- | A program is a sequence of commands.
 -- type Prog = [Cmd]
 
@@ -15,6 +15,15 @@ import Render
 -- data Cmd = Pen Mode
 --          | Move Int Int
 --   deriving (Eq,Show)
+
+-- -- | A point is a cartesian pair (x,y).
+-- type Point = (Int,Int)
+
+-- -- | A line is defined by its endpoints.
+-- type Line = (Point,Point)
+-------------------------------------------------------
+
+
 
 --
 -- * Semantics of MiniMiniLogo
@@ -62,7 +71,7 @@ draw p = let (_,ls) = prog p start in toHTML ls
 --   ((Down,(4,5)),Just ((2,3),(4,5)))
 --
 cmd :: Cmd -> State -> (State, Maybe Line)
-cmd (Pen x) (md,pt)      = (  (x,pt) , Nothing) 
+cmd (Pen x) (_,pt)      = (  (x,pt) , Nothing) 
 cmd (Move m1 m2) (Down,pt) = (  (Down, (m1,m2)) , Just((pt),(m1,m2)) )
 cmd (Move m1 m2) (Up,pt) = (  (Up, (m1,m2)) , Nothing)
 
@@ -75,7 +84,19 @@ cmd (Move m1 m2) (Up,pt) = (  (Up, (m1,m2)) , Nothing)
 --   >>> prog (steps 2 0 0) start
 --   ((Down,(2,2)),[((0,0),(0,1)),((0,1),(1,1)),((1,1),(1,2)),((1,2),(2,2))])
 prog :: Prog -> State -> (State, [Line])
-prog (prog:progs) (md,pt) = undefined
+prog [] (x) = (x,[])
+prog prgs x = (progStateBuilder prgs, --do things here )
+
+progLinePt :: Cmd -> Maybe Point
+progLinePt (Pen _)    = Nothing
+progLinePt (Move x y) = Just((x,y))
+
+progStateBuilder :: Prog -> State
+progStateBuilder [] = start
+progStateBuilder x  = (Down, (case progLinePt(last x) of
+                                  Nothing -> (0,0)
+                                  (Just pt) -> pt)
+                      )
 
 
 --
