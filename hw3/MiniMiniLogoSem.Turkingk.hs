@@ -118,4 +118,3 @@ bigbox :: Int -> Int -> Prog
 bigbox x y = [Pen Up, Move x y, Pen Down,
            Move (x+4) y, Move (x+4) (y+4), Move x (y+4), Move x y]
 
-
