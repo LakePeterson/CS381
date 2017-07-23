@@ -84,20 +84,21 @@ cmd (Move m1 m2) (Up,pt) = (  (Up, (m1,m2)) , Nothing)
 --   >>> prog (steps 2 0 0) start
 --   ((Down,(2,2)),[((0,0),(0,1)),((0,1),(1,1)),((1,1),(1,2)),((1,2),(2,2))])
 prog :: Prog -> State -> (State, [Line])
-prog [] (x) = (x,[])
-prog prgs x = (progStateBuilder prgs, --do things here )
+prog prgs st = (progHelper prgs (st,[]) )
 
-progLinePt :: Cmd -> Maybe Point
-progLinePt (Pen _)    = Nothing
-progLinePt (Move x y) = Just((x,y))
+progHelper :: Prog -> (State, [Line]) -> (State, [Line])
+progHelper [] x = x
+progHelper (prg:prgs) (st,ls) = 
+                    let (nexst,nexln) = cmd prg st in
+                    case nexln of 
+                        Just nexln -> progHelper prgs (nexst,ls ++ [nexln]) 
+                        Nothing -> progHelper prgs (nexst,ls)
 
-progStateBuilder :: Prog -> State
-progStateBuilder [] = start
-progStateBuilder x  = (Down, (case progLinePt(last x) of
-                                  Nothing -> (0,0)
-                                  (Just pt) -> pt)
-                      )
-
+-- | Makes life ez
+-- How to run 101
+-- ezRander (prog (nix 10 10 5 7) start)
+ezRender :: (State,[Line]) -> IO ()
+ezRender (_,xs) = toHTML xs
 
 --
 -- * Extra credit
@@ -105,5 +106,16 @@ progStateBuilder x  = (Down, (case progLinePt(last x) of
 
 -- | This should be a MiniMiniLogo program that draws an amazing picture.
 --   Add as many helper functions as you want.
+-- ezRender(prog amazing start)
 amazing :: Prog
-amazing = undefined
+amazing = [Pen Up, Move 5 5,Pen Down, Move 20 5, Move 20 10, Move 5 10, Move 5 5, Pen Up] ++ (steps 5 20 10)
+          ++ [Pen Up, Move 5 10, Pen Down, Move 3 13, Pen Up] ++ (bigbox 0 13) 
+          ++ [Pen Up, Move 0 17, Pen Down, Move 1 19,Move 2 17, Move 3 19, Move 4 17, Pen Up]
+          ++ [Pen Up, Move 7 5, Pen Down, Move 7 0, Pen Up]
+          ++ [Pen Up, Move 17 5, Pen Down, Move 17 0, Pen Up]
+
+bigbox :: Int -> Int -> Prog
+bigbox x y = [Pen Up, Move x y, Pen Down,
+           Move (x+4) y, Move (x+4) (y+4), Move x (y+4), Move x y]
+
+
