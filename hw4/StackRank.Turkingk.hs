@@ -21,6 +21,7 @@ type Stack = [Int]
 
 type Rank = Int
 
+-- NOTES:      (popsnum on stack,pushes on stack)
 type CmdRank = (Int,Int)
 
 
@@ -47,24 +48,41 @@ cmd _        _       = Nothing
 
 -- | 1. Define the function rankC that maps each stack operation to its rank
 --
-rankC = undefined
-
-
+rankC :: Cmd -> CmdRank
+rankC (Push _) = (0,1)
+rankC (Pop x)  = (x,0)
+rankC (Add)    = (2,1)
+rankC (Mul)    = (2,1)
+rankC (Dup)    = (1,2)
+rankC (Inc)    = (1,1)
+rankC (Swap)   = (2,2)
 
 -- | 2. Define the auxiliary function rankP that computes the rank of programs
 --
-rankP = undefined
+rankP :: Prog -> Rank -> Maybe Rank
+rankP [] x = Just x
+rankP cmds x = rank cmds x
 
+rank :: Prog -> Rank -> Maybe Rank
+rank [] x = Just x
+rank (x:xs) r = let (popsnum,pushsnum) = rankC x in
+                    if (popsnum < r) then rank xs (r - popsnum + pushsnum)
+                    else Nothing
 
+rankPMapper :: Prog -> [CmdRank]
+rankPMapper [] = []
+rankPMapper cmds = map rankC cmds
 
 -- | 3. Define the semantic function semStatTC for evaluating stack programs
 --
-semStatTC = undefined
+semStatTC :: Prog -> Stack -> Maybe Stack
+semStatTC prg stk = if (rankP prg (length stk)) == Nothing then Nothing
+                    else prog prg stk
 
 
 -- | EXTRA CREDIT
 --
-prog' = undefined
+-- prog' = undefined
 
 
 
