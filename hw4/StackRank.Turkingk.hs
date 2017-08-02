@@ -110,7 +110,7 @@ semStatTC prg stk = if (rankP prg (length stk)) == Nothing then Nothing
 --
 -- Note: prime notation is for keeping track of scope
 --
---[] -- nothing on stack
+--[]                                            -- nothing on stack
 --[(x:?)]                                       -- pushing X reference
 --[(y:?),(x:?)]                                 -- pushing y reference
 --[(y:1),(x:?)]                                 -- setting y = 1 from y = ?
@@ -148,23 +148,28 @@ semStatTC prg stk = if (rankP prg (length stk)) == Nothing then Nothing
 -- 
 -- Note: prime notation is for keeping track of scope
 --
--- []
--- [(x:?)]
--- [(y:?),(x:?)]
--- [(z:?),(y:?),(x:?)]
--- [(z:?),(y:?),(x:3)]
--- [(z:?),(y:7),(x:3)]
--- [f{},(z:?),(y:7),(x:3)]
--- [(y':?),f{},(z:?),(y:7),(x:3)]
--- [(y':11),f{},(z:?),(y:7),(x:3)]
--- [g{},(y':11),f{},(z:?),(y:7),(x:3)]
--- [(y'':?),g{},(y':11),f{},(z:?),(y:7),(x:3)]
--- [(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]
--- [(x'g(2):2),(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]
--- [(y'f(13):13),(x'g(2):2),(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]
+-- []                                                                     -- Nothing on stack
+-- [(x:?)]                                                                -- push X reference
+-- [(y:?),(x:?)]                                                          -- push Y reference
+-- [(z:?),(y:?),(x:?)]                                                    -- push Z reference
+-- [(z:?),(y:?),(x:3)]                                                    -- Setting x = 3 from x = ?
+-- [(z:?),(y:7),(x:3)]                                                    -- Setting y = 7 from y = ? 
+-- [f{},(z:?),(y:7),(x:3)]                                                -- Pushing f function
+-- [(y':?),f{},(z:?),(y:7),(x:3)]                                         -- Pushing y' (new scope y) reference
+-- [(y':11),f{},(z:?),(y:7),(x:3)]                                        -- Setting y' = 11 from y' = ?
+-- [g{},(y':11),f{},(z:?),(y:7),(x:3)]                                    -- Pushing g function
+-- [(y'':?),g{},(y':11),f{},(z:?),(y:7),(x:3)]                            -- Setting y'' (another new scope y) reference
+-- [(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]                           -- Setting y'' = 13 from y'' = ?
+-- [(x'g(2):2),(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]                -- Calling g(2), pushing parameter x from scope g(2)
+-- [(y'f(13):13),(x'g(2):2),(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]   -- Calling f(13) pushing parameter y from scope f(13)
+-- [(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)]                           -- return from g(2){f(13){ return ...}} and set z = ? to z = ... depending on static or dynamic scoping
 
--- return from g(2){f(13){ return ...}}
--- [(y'':13),g{},(y':11),f{},(z:?),(y:7),(x:3)] set z = ? to z = ... depending on static or dynamic scoping
+-- Notes: 
+-- if using dyanmic scope disregard primes on varables 
+--  dyanmic scoping is similiar to javascript/typescipt 'var' variable declaration
+--  OR using global in C
+-- if using static scope use out most varible that has been set.
+--  Static scoping is similiar to regular declaration in c (non-global)     
 
 -- static scoping  z = 3 * 7 = 21
 -- dynamic scoping z = 2 * 13 = 26
