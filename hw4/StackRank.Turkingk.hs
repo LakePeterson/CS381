@@ -79,8 +79,14 @@ semStatTC prg stk = if (rankP prg (length stk)) == Nothing then Nothing
 
 -- | EXTRA CREDIT
 --
--- Not sure
--- prog' = undefined
+
+-- This is a redefinition of the same data type
+--  essentially it just compresses the definition together into one type
+type PrgStk = Prog -> Stack -> Maybe Stack
+
+prog' :: PrgStk
+prog' []     s = Just s
+prog' (c:cs) s = cmd c s >>= prog' cs
 
 
 
