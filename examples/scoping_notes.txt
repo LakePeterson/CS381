@@ -1,0 +1,66 @@
+Dyanmic vs. Static scoping:
+
+if using dyanmic scope disregard primes on varables 
+dyanmic scoping is similiar to javascript/typescipt 'var' variable declaration
+OR using global in C
+
+if using static scope use out most varible that has been set.
+Static scoping is similiar to regular declaration in c (non-global)
+
+
+Call By:
+				       Value |	Name	  |	Need
+
+What Gets stored in the enviroment:|   value | expression | expression/value
+
+How to access the parameter value: |  lookup | evaluation | eval, then lookup
+
+
+Callby value: evaluate always and immediately.
+              ex. foobar ( parameterfunc() ) run parameter function always before foobar
+
+Callby Name: evaluate only when used!
+	ex.
+	bool x = true 
+	foobar ( parameterfunc(), x ){
+	 if x == true then 
+	     run parameterfunc()
+	     run parameterfunc()
+	}
+
+	parameterfunc runs 2 times
+
+	ex.
+	bool x = false
+	foobar ( parameterfunc(), x ){
+	 if x == true then 
+	     run parameterfunc()
+	     run parameterfunc()
+	}
+
+	parameterfunc runs 0 times
+
+Callby Need: evaluate only when used! and dont evaluate the same function again if it has the same parameters
+	ex.
+	bool x = true 
+	foobar ( parameterfunc(), x ){
+	 if x == true then 
+	     run parameterfunc()
+	     run parameterfunc()
+	}
+
+	parameterfunc runs 1 times
+
+	ex.
+	bool x = false
+	foobar ( parameterfunc(), x ){
+	 if x == true then 
+	     run parameterfunc()
+	     run parameterfunc()
+	}
+
+	parameterfunc runs 0 times
+
+
+
+
