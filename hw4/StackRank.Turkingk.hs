@@ -76,6 +76,11 @@ semStatTC :: Prog -> Stack -> Maybe Stack
 semStatTC prg stk = if (rankP prg (length stk)) == Nothing then Nothing
                     else prog prg stk
 
+-- Or use this function for an empty stack
+semStatTC' :: Prog -> Maybe Stack
+semStatTC' prg = if (rankP prg 0) == Nothing then Nothing
+                    else (prog prg [])
+
 
 -- | EXTRA CREDIT
 --
