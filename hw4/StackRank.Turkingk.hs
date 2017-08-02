@@ -87,19 +87,20 @@ semStatTC prg stk = if (rankP prg (length stk)) == Nothing then Nothing
 -- * Part 2: Runtime Stack
 --
 -- | Consider the following block of code.
--- { int x;
---   int y;
---   y := 1;
---   { int f(int x) {
---       if x = 0 then {
---          y := 1 }
---       else {
---          y := f(x - 1) * y + 1 };
---       return y;
---     }
---     x := f(2);
---   };
--- }
+--  1: { int x;
+--  2:   int y;
+--  3:   y := 1;
+--  4:   { int f(int x) {
+--  5:       if x = 0 then {
+--  6:          y := 1 }
+--  7:       else {
+--  8:          y := f(x - 1) * y + 1 };
+--  9:       return y;
+-- 10:     }
+-- 11:     x := f(2);
+-- 12:   };
+-- 13: }
+--
 -- | Illustrate the computations that take place during the evaluation of this block, that is,
 --   draw a sequence of pictures each showing the complete runtime stack with all activation records after each statement or function call.
 
