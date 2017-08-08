@@ -72,18 +72,18 @@ brother(X,Y) :- male(X), sibling(X,Y).
 
 % 6. Define a predicate `siblingsInLaw/2`, where a sibling-in-law is either
 %    married to a sibling or the sibling of a spouse.
-
-siblingsInLaw(X,Y) :- married(X,Z), sibling(Z,Y).
+siblingsInLaw(X,Y) :- sibling(X,Z), married(Y,Z).
+siblingsInLaw(X,Y) :- married(X,Z), sibling(Y,Z).
 
 
 % 7. Define two predicates `aunt/2` and `uncle/2` (these should include aunts and
 %    uncles who are related by marriage).
 
-aunt(X,Y) :- sister(X,Z), parent(Z,Y).
-aunt(X,Y) :- married(X,Z), sibling(Z,W), child(Y,W), female(X).
+aunt(X,Y) :- sibling(X,Z), parent(Z,Y), female(X).
+aunt(X,Y) :- siblingsInLaw(X,Z), parent(Z,Y), female(X).
 
-uncle(X,Y) :- brother(X,Z), parent(Z,Y).
-uncle(X,Y) :- married(X,Z), sibling(Z,W), child(Y,W), male(X).
+uncle(X,Y) :- sibling(X,Z), parent(Z,Y), male(X).
+uncle(X,Y) :- siblingsInLaw(X,Z), parent(Z,Y), male(X).
 
 
 % 8. Define the predicate `cousin/2`.
@@ -91,6 +91,7 @@ uncle(X,Y) :- married(X,Z), sibling(Z,W), child(Y,W), male(X).
 cousin(X,Y) :- child(X,A), child(Y,B), sibling(A,B).
 
 % 9. Define the predicate `ancestor/2`.
-
+ancestor(X,Y) :- parent(X,Y).
+ancestor(X,Y) :- parent(Z,Y), ancestor(X,Z).
 
 % Extra credit: define the predicate `related/2`.
