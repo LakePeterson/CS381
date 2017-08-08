@@ -91,7 +91,20 @@ uncle(X,Y) :- siblingsInLaw(X,Z), parent(Z,Y), male(X).
 cousin(X,Y) :- child(X,A), child(Y,B), sibling(A,B).
 
 % 9. Define the predicate `ancestor/2`.
-ancestor(X,Y) :- parent(X,Y).
-ancestor(X,Y) :- parent(Z,Y), ancestor(X,Z).
+ancestor(X,Y) :- child(Y,X).
+ancestor(X,Y) :- child(Y,Z), ancestor(X,Z).
 
 % Extra credit: define the predicate `related/2`.
+
+related(X,Y) :- ancestor(X,Y).
+related(X,Y) :- ancestor(Y,X).
+related(X,Y) :- cousin(X,Y).
+related(X,Y) :- cousin(Y,X).
+related(X,Y) :- aunt(X,Y).
+related(X,Y) :- aunt(Y,X).
+related(X,Y) :- uncle(X,Y).
+related(X,Y) :- uncle(Y,X).
+related(X,Y) :- siblingsInLaw(X,Y).
+related(X,Y) :- siblingsInLaw(Y,X).
+related(X,Y) :- sibling(X,Y).
+related(X,Y) :- sibling(Y,X).
