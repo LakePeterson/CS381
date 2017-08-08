@@ -50,23 +50,30 @@ parent(adam,carolBaby).
 
 % 1. Define a predicate `child/2` that inverts the parent relationship.
 
+child(X,Y) :- parent(Y,X).
 
 % 2. Define two predicates `isMother/1` and `isFather/1`.
 
+isMother(X) :- female(X), parent(X,_).
+isFather(X) :- male(X), parent(X,_).
 
 % 3. Define a predicate `grandparent/2`.
 
+grandparent(X,Z) :- parent(X,Y), parent(Y,Z).
 
 % 4. Define a predicate `sibling/2`, where siblings share ar least one parent.
 
+sibling(X,Y) :- child(X,Z), child(Y,Z), X \= Y.
 
 % 5. Define two predicates `sister/2` and `brother/2`.
 
+sister(X,Y) :- female(X), sibling(X,Y).
+brother(X,Y) :- male(X), sibling(X,Y).
 
 % 6. Define a predicate `siblingsInLaw/2`, where a sibling-in-law is either
 %    married to a sibling or the sibling of a spouse.
 
-
+siblingsInLaw(X,Y) :- married(X,Z), sibling(Z,Y).
 
 
 % 7. Define two predicates `aunt/2` and `uncle/2` (these should include aunts and
